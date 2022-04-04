@@ -1,6 +1,5 @@
 package net.nicguzzo;
 
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -8,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class CondenserEntity extends BlockEntity implements BlockEntityClientSerializable {
+public class CondenserEntity extends BlockEntity {
 
     // Store the current value of the number
     private int time = 0;
@@ -56,14 +55,12 @@ public class CondenserEntity extends BlockEntity implements BlockEntityClientSer
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
 
         // Save the current value of the number to the tag
         tag.putInt("number", time);
         tag.putInt("level", level);
-
-        return tag;
     }
 
     @Override
@@ -74,22 +71,12 @@ public class CondenserEntity extends BlockEntity implements BlockEntityClientSer
         level = tag.getInt("level");
     }
 
-    @Override
-    public void fromClientTag(NbtCompound tag) {
-        this.readNbt(tag);
-    }
-
-    @Override
-    public NbtCompound toClientTag(NbtCompound tag) {
-        return this.writeNbt(tag);
-    }
-
     public static void tick(World world, BlockPos pos, BlockState state, CondenserEntity blockEntity) {
         if (!world.isClient) {
             // System.out.println("tick");
             int time_limit = 2400;
             Biome biome = world.getBiome(pos);
-            float temperature = biome.getTemperature(pos);
+            float temperature = biome.getTemperature();
             boolean raining = world.isRaining();
 
             if (temperature >= 0.95f) {

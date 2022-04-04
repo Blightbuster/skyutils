@@ -1,6 +1,5 @@
 package net.nicguzzo.kiln;
 
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -13,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -21,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.nicguzzo.SkyutilsMod;
 
-public class KilnBlockEntity extends LootableContainerBlockEntity implements BlockEntityClientSerializable {
+public class KilnBlockEntity extends LootableContainerBlockEntity {
     private DefaultedList<ItemStack> inventory;
     private int burn_time = 0;
     private int cook_time = 0;
@@ -111,13 +111,12 @@ public class KilnBlockEntity extends LootableContainerBlockEntity implements Blo
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.putInt("burn_time", this.burn_time);
         tag.putInt("cook_time", this.cook_time);
         tag.putInt("progress", this.progress);
         Inventories.writeNbt(tag, this.inventory);
-        return tag;
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, KilnBlockEntity blockEntity) {
@@ -152,20 +151,10 @@ public class KilnBlockEntity extends LootableContainerBlockEntity implements Blo
                     }
                 }
             }
-            sync();
+            ((ServerWorld) world).getChunkManager().markForUpdate(getPos());
         }
 
         this.markDirty();
-    }
-
-    @Override
-    public void fromClientTag(NbtCompound tag) {
-        this.readNbt(tag);
-    }
-
-    @Override
-    public NbtCompound toClientTag(NbtCompound tag) {
-        return this.writeNbt(tag);
     }
 
     private boolean cook(ItemStack item, ItemStack fuel, ItemStack crucible, int total_cook_time, int dec, Item out) {

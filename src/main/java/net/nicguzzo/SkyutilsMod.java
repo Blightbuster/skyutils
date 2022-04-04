@@ -88,10 +88,7 @@ public class SkyutilsMod implements ModInitializer {
 	public void onInitialize() {
 
 		load_config();
-		Registry.register(Registry.CHUNK_GENERATOR, new Identifier("skyutils", "skyblock_island"),
-				SkyblockChunkGenerator.CODEC);
-		Registry.register(Registry.CHUNK_GENERATOR, new Identifier("skyutils", "skyblock_island_nether"),
-				SkyblockNetherChunkGenerator.CODEC);
+
 		// items
 		Registry.register(Registry.ITEM, new Identifier("skyutils", "wooden_hammer"), WOODEN_HAMMER);
 		Registry.register(Registry.ITEM, new Identifier("skyutils", "stone_hammer"), STONE_HAMMER);

@@ -1,5 +1,6 @@
 package net.nicguzzo.mixin;
 
+import net.minecraft.world.tick.OrderedTick;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,7 @@ public abstract class ComposterMixin {
     int j = level + 1;
     world.setBlockState(pos, (BlockState) state.with(ComposterBlock.LEVEL, j), 3);
     if (j == 7) {
-      world.getBlockTickScheduler().schedule(pos, state.getBlock(), 20);
+      world.getBlockTickScheduler().scheduleTick(OrderedTick.create(state.getBlock(), pos));
     }
     return true;
 
