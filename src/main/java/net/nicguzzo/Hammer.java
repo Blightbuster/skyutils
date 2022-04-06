@@ -101,7 +101,7 @@ public class Hammer extends MiningToolItem {
                 stack = new ItemStack(SkyutilsMod.DIAMOND_NUGGET);
             } else {
                 int lucky = world.random.nextFloat() < 0.3f * chance ? 0 : 1;
-                stack = new ItemStack(Items.CHARCOAL, Math.max(7 + lucky, 8));
+                stack = new ItemStack(Items.CHARCOAL, Math.min(8 + lucky, 9));
             }
         } else if (path.equals("coal_block")) {
             if (world.random.nextFloat() < 0.10f * chance) {
@@ -110,7 +110,7 @@ public class Hammer extends MiningToolItem {
                 stack = new ItemStack(SkyutilsMod.DIAMOND_NUGGET);
             } else {
                 int lucky = world.random.nextFloat() < 0.3f * chance ? 0 : 1;
-                stack = new ItemStack(Items.COAL, Math.max(7 + lucky, 8));
+                stack = new ItemStack(Items.COAL, Math.min(8 + lucky, 9));
             }
         } else if (path.equals("quartz_block")) {
             stack = new ItemStack(Items.QUARTZ, 4);
