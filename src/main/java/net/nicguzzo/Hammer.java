@@ -95,7 +95,7 @@ public class Hammer extends MiningToolItem {
             case "gravel" -> new ItemStack(rdm(0.8f, Items.SAND, Items.RED_SAND));
             case "sand" -> new ItemStack(Items.CLAY_BALL, 4);
             case "red_sand" -> new ItemStack(Items.CLAY_BALL, 3);
-            case "_log" -> new ItemStack(SkyutilsMod.WOODCHIPS);
+            case "_log" -> new ItemStack(SkyutilsMod.WOODCHIPS, 4);
             case "dirt", "podzol", "grass_block" -> new ItemStack(SkyutilsMod.PEBBLE, 4);
             case "moss_block", "rooted_dirt" -> new ItemStack(Items.DIRT);
             case "coal_block", "charcoal_block" -> {
