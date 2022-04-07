@@ -99,7 +99,7 @@ public class Hammer extends MiningToolItem {
             case "dirt", "podzol", "grass_block" -> new ItemStack(SkyutilsMod.PEBBLE, 4);
             case "moss_block", "rooted_dirt" -> new ItemStack(Items.DIRT);
             case "coal_block", "charcoal_block" -> {
-                Item item = path.equals("coal_block") ? Items.CHARCOAL : Items.COAL;
+                Item item = path.equals("coal_block") ? Items.COAL : Items.CHARCOAL;
                 int lucky = isLucky(0.3f, bonusMul) ? 0 : 1;
                 yield new ItemStack(item, 8 + lucky);
             }
