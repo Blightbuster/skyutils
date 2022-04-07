@@ -101,7 +101,7 @@ public class Hammer extends MiningToolItem {
             case "coal_block", "charcoal_block" -> {
                 Item item = path.equals("coal_block") ? Items.COAL : Items.CHARCOAL;
                 int lucky = isLucky(0.3f, bonusMul) ? 0 : 1;
-                yield new ItemStack(item, 8 + lucky);
+                yield new ItemStack(item, 7 + lucky);
             }
             case "quartz_block" -> new ItemStack(Items.QUARTZ, 4);
             default -> null;
