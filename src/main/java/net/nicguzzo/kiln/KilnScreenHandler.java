@@ -26,9 +26,10 @@ public class KilnScreenHandler extends ScreenHandler {
  
     protected KilnScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory,PropertyDelegate pd) {
         super(SkyutilsMod.KILN_SCREEN_HANDLER, syncId); // Since we didn't create a ContainerType, we will place null here.
+
         this.inventory = inventory;
         checkSize(inventory, INVENTORY_SIZE);
-        //checkContainerDataCount(pd, 3);
+
         this.propertyDelegate = pd;
         inventory.onOpen(playerInventory.player);
         

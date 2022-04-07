@@ -28,9 +28,9 @@ public abstract class ComposterMixin {
 
   private static boolean addToComposter(int level, BlockState state, WorldAccess world, BlockPos pos, ItemStack item) {
 
-    System.out.println("composter level: " + level);
+
     int j = level + 1;
-    world.setBlockState(pos, (BlockState) state.with(ComposterBlock.LEVEL, j), 3);
+    world.setBlockState(pos, state.with(ComposterBlock.LEVEL, j), 3);
     if (j == 7) {
       world.getBlockTickScheduler().scheduleTick(OrderedTick.create(state.getBlock(), pos));
     }
@@ -45,8 +45,8 @@ public abstract class ComposterMixin {
 
   public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit,
       CallbackInfoReturnable<ActionResult> info) {
-    int i = (Integer) state.get(ComposterBlock.LEVEL);
-    System.out.println("composter on use level: " + i);
+    int i = state.get(ComposterBlock.LEVEL);
+
     ItemStack itemStack = player.getStackInHand(hand);
     if (i < 8 && ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(itemStack.getItem())) {
       if (i < 7 && !world.isClient) {
@@ -71,7 +71,7 @@ public abstract class ComposterMixin {
       }
 
       emptyComposter(state, world, pos);
-      world.playSound((PlayerEntity) null, pos, SoundEvents.BLOCK_COMPOSTER_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+      world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
       info.setReturnValue(ActionResult.SUCCESS);
     } else {

@@ -55,7 +55,7 @@ public class Crucible extends Item {
                     if (blockState.getBlock() instanceof FluidDrainable) {
                         ItemStack fluid_item = ((FluidDrainable) blockState.getBlock()).tryDrainFluid(world, blockPos,
                                 blockState);
-                        //System.out.println("fluid: "+fluid_item);
+
 
                         if (fluid_item != ItemStack.EMPTY) {
                             user.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -135,9 +135,8 @@ public class Crucible extends Item {
             boolean bl = blockState.canBucketPlace(this.fluid);
             if (!blockState.isAir() && !bl && (!(blockState.getBlock() instanceof FluidFillable)
                     || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, this.fluid))) {
-                return hitResult == null ? false
-                        : this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()),
-                                (BlockHitResult) null);
+                return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()),
+                        null);
             } else {
                 if (world.getDimension().isUltrawarm() && this.fluid.matchesType(Fluids.WATER)) {
                     int i = pos.getX();

@@ -69,7 +69,7 @@ public class KilnBlockEntity extends LootableContainerBlockEntity {
         super(SkyutilsMod.KILN_ENTITY_TYPE, pos, state);
         this.inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
         // this.propertyDelegate
-    };
+    }
 
     /*
      * @Override public Text getDisplayName() { return new
@@ -82,7 +82,7 @@ public class KilnBlockEntity extends LootableContainerBlockEntity {
 
     @Override
     public ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new KilnScreenHandler(syncId, playerInventory, (Inventory) this, this.propertyDelegate);
+        return new KilnScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override
@@ -128,16 +128,16 @@ public class KilnBlockEntity extends LootableContainerBlockEntity {
             this.burn_time--;
         }
         if (!this.world.isClient) {
-            ItemStack item = (ItemStack) this.inventory.get(0);
-            ItemStack crucible = (ItemStack) this.inventory.get(1);
-            ItemStack fuel = (ItemStack) this.inventory.get(2);
-            ItemStack out = (ItemStack) this.inventory.get(3);
+            ItemStack item = this.inventory.get(0);
+            ItemStack crucible = this.inventory.get(1);
+            ItemStack fuel = this.inventory.get(2);
+            ItemStack out = this.inventory.get(3);
 
             if (out.isEmpty()) {
                 if (!crucible.isEmpty()) {
                     if (!item.isEmpty() && item.getItem() == Items.COBBLESTONE && item.getCount() >= COBBLESTONE_COST) {
                         cook(item, fuel, crucible, COBBLESTONE_COOK_TIME, COBBLESTONE_COST,
-                                (Item) SkyutilsMod.LAVA_CRUCIBLE);
+                                SkyutilsMod.LAVA_CRUCIBLE);
                     } else {
                         this.cook_time = 0;
                         this.progress = 0;

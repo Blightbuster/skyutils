@@ -39,7 +39,7 @@ public class KilnBlock extends BlockWithEntity {
     // public static final BooleanProperty LIT;
     public KilnBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState) (this.stateManager.getDefaultState().with(FACING, Direction.NORTH)));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
@@ -69,8 +69,6 @@ public class KilnBlock extends BlockWithEntity {
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof KilnBlockEntity) {
-                System.out.println("open!");
-
                 NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
 
                 if (screenHandlerFactory != null) {
@@ -90,12 +88,10 @@ public class KilnBlock extends BlockWithEntity {
     // Scatter the items in the chest when it is removed.
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        // if (state.getBlock() != newState.getBlock())
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof KilnBlockEntity) {
-                ItemScatterer.spawn(world, (BlockPos) pos, (Inventory) ((KilnBlockEntity) blockEntity));
-                // world.updateHorizontalAdjacent(pos, this);
+                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
                 world.updateNeighbors(pos, this);
             }
             super.onBreak(world, pos, state, player);
@@ -114,17 +110,17 @@ public class KilnBlock extends BlockWithEntity {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState) this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
     }
 
     @Override
     public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return (BlockState) state.with(FACING, rotation.rotate((Direction) state.get(FACING)));
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
     @Override
     public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation((Direction) state.get(FACING)));
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
     @Override
@@ -140,7 +136,6 @@ public class KilnBlock extends BlockWithEntity {
 
     static {
         FACING = HorizontalFacingBlock.FACING;
-        // LIT = RedstoneTorchBlock.LIT;
     }
 
 }
