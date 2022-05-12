@@ -1,9 +1,9 @@
-package net.nicguzzo.kiln;
+package net.blightbuster.kiln;
 
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.nicguzzo.SkyutilsMod;
+import net.blightbuster.SkyutilsMod;
 
 public class KilnFuelSlot extends Slot {
    

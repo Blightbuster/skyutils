@@ -1,4 +1,4 @@
-package net.nicguzzo;
+package net.blightbuster;
 
 import java.io.File;
 import java.io.FileReader;
@@ -27,9 +27,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
-import net.nicguzzo.kiln.KilnBlock;
-import net.nicguzzo.kiln.KilnBlockEntity;
-import net.nicguzzo.kiln.KilnScreenHandler;
+import net.blightbuster.kiln.KilnBlock;
+import net.blightbuster.kiln.KilnBlockEntity;
+import net.blightbuster.kiln.KilnScreenHandler;
 
 public class SkyutilsMod implements ModInitializer {
 

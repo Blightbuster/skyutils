@@ -1,11 +1,9 @@
-package net.nicguzzo.kiln;
+package net.blightbuster.kiln;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -19,7 +17,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.nicguzzo.SkyutilsMod;
+import net.blightbuster.SkyutilsMod;
 
 public class KilnBlockEntity extends LootableContainerBlockEntity {
     private DefaultedList<ItemStack> inventory;

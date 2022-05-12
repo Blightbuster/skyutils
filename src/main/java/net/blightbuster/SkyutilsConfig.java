@@ -1,4 +1,4 @@
-package net.nicguzzo;
+package net.blightbuster;
 
 import net.minecraft.network.PacketByteBuf;
 

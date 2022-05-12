@@ -1,4 +1,4 @@
-package net.nicguzzo.kiln;
+package net.blightbuster.kiln;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,7 +12,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.FurnaceOutputSlot;
 import net.minecraft.screen.slot.Slot;
-import net.nicguzzo.SkyutilsMod;
+import net.blightbuster.SkyutilsMod;
 
 public class KilnScreenHandler extends ScreenHandler {
     private final Inventory inventory; 

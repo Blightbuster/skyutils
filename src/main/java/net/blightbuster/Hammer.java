@@ -1,40 +1,22 @@
-package net.nicguzzo;
+package net.blightbuster;
 
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CoralBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.stat.Stats;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
-public class Hammer extends MiningToolItem {
-    private static final Tag<Block> EFFECTIVE_BLOCKS = Tag.of(ImmutableSet.of(Blocks.STONE,
-            Blocks.COBBLESTONE,
-            Blocks.SAND,
-            Blocks.RED_SAND,
-            Blocks.GRAVEL,
-            Blocks.ACACIA_LOG,
-            Blocks.OAK_LOG,
-            Blocks.SPRUCE_LOG,
-            Blocks.DARK_OAK_LOG,
-            Blocks.JUNGLE_LOG,
-            Blocks.GRASS_BLOCK,
-            Blocks.PODZOL,
-            SkyutilsMod.CHARCOAL_BLOCK,
-            Blocks.QUARTZ_BLOCK,
-            Blocks.NETHERRACK,
-            Blocks.COAL_BLOCK,
-            Blocks.MOSS_BLOCK));
+import java.util.List;
 
+public class Hammer extends MiningToolItem {
     private static final Item[] DIRT_DROPS = new Item[]{Items.OAK_SAPLING,
             Items.ACACIA_SAPLING,
             Items.SPRUCE_SAPLING,
@@ -51,7 +33,7 @@ public class Hammer extends MiningToolItem {
             Items.AZALEA};
 
     public Hammer(ToolMaterial material, int attackDamage, float attackSpeed, Item.Settings settings) {
-        super((float) attackDamage, attackSpeed, material, EFFECTIVE_BLOCKS, settings);
+        super((float) attackDamage, attackSpeed, material, null, settings);
     }
 
     private static boolean isLucky(float chance) {
@@ -77,7 +59,7 @@ public class Hammer extends MiningToolItem {
         return isLucky(0.33333f) ? arg1 : rdm(arg2, arg3);
     }
 
-    public static boolean remap_drop(World world, PlayerEntity player, BlockPos pos, BlockState state) {
+    public static boolean remapDrop(World world, PlayerEntity player, BlockPos pos, BlockState state) {
 
         Identifier identifier = Registry.BLOCK.getId(state.getBlock());
         String path = identifier.getPath();
@@ -89,6 +71,8 @@ public class Hammer extends MiningToolItem {
 
             bonusMul += i;
         }
+
+        if (path.endsWith("_log")) path = "_log";
 
         ItemStack droppedItems = switch (path) {
             case "cobblestone", "stone" -> new ItemStack(Items.GRAVEL);
@@ -150,8 +134,27 @@ public class Hammer extends MiningToolItem {
     }
 
     @Override
+    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+        return isSuitableFor(state) ? this.miningSpeed : 1.0f;
+    }
+
+    @Override
     public boolean isSuitableFor(BlockState state) {
         Block block = state.getBlock();
-        return EFFECTIVE_BLOCKS.contains(block);
+        List effectiveBlocks = List.of(
+                Blocks.STONE,
+                Blocks.COBBLESTONE,
+                Blocks.SAND,
+                Blocks.RED_SAND,
+                Blocks.GRAVEL,
+                Blocks.GRASS_BLOCK,
+                Blocks.PODZOL,
+                SkyutilsMod.CHARCOAL_BLOCK,
+                Blocks.QUARTZ_BLOCK,
+                Blocks.NETHERRACK,
+                Blocks.COAL_BLOCK,
+                Blocks.MOSS_BLOCK
+        );
+        return effectiveBlocks.contains(block) || state.isIn(BlockTags.LOGS);
     }
 }

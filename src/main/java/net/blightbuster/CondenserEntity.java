@@ -1,4 +1,4 @@
-package net.nicguzzo;
+package net.blightbuster;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -69,7 +69,7 @@ public class CondenserEntity extends BlockEntity {
         if (!world.isClient) {
 
             int time_limit = 2400;
-            Biome biome = world.getBiome(pos);
+            Biome biome = world.getBiome(pos).value();
             float temperature = biome.getTemperature();
             boolean raining = world.isRaining();
 

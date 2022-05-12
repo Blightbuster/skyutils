@@ -1,4 +1,4 @@
-package net.nicguzzo;
+package net.blightbuster;
 
 import java.util.Optional;
 
@@ -11,7 +11,6 @@ import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.sound.Sound;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;

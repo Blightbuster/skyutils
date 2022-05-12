@@ -1,4 +1,4 @@
-package net.nicguzzo.kiln;
+package net.blightbuster.kiln;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 

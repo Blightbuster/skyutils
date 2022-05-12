@@ -1,4 +1,4 @@
-package net.nicguzzo.mixin;
+package net.blightbuster.mixin;
 
 import net.minecraft.world.tick.OrderedTick;
 import org.spongepowered.asm.mixin.Mixin;

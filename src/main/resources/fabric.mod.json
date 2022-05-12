@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.nicguzzo.SkyutilsMod"
+      "net.blightbuster.SkyutilsMod"
     ],
     "client": [
-      "net.nicguzzo.SkyutilsClientMod"
+      "net.blightbuster.SkyutilsClientMod"
     ]
   },
   "mixins": [
