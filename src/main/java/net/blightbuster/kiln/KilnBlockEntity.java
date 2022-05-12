@@ -1,5 +1,6 @@
 package net.blightbuster.kiln;
 
+import net.blightbuster.SkyutilsMod;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,11 +14,9 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.blightbuster.SkyutilsMod;
 
 public class KilnBlockEntity extends LootableContainerBlockEntity {
     private DefaultedList<ItemStack> inventory;

@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "skyutils:block/charcoal_block" }
+  "variants": {
+    "": {
+      "model": "skyutils:block/charcoal_block"
     }
+  }
 }

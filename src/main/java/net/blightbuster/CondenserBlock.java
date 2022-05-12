@@ -1,13 +1,6 @@
 package net.blightbuster;
 
-import java.util.Optional;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -23,12 +16,18 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class CondenserBlock extends HorizontalFacingBlock implements BlockEntityProvider, FluidDrainable {
     public static final IntProperty LEVEL;
+
+    static {
+        LEVEL = IntProperty.of("level", 0, 7);
+    }
 
     public CondenserBlock() {
         super(Settings.of(Material.WOOD).nonOpaque());
@@ -36,8 +35,14 @@ public class CondenserBlock extends HorizontalFacingBlock implements BlockEntity
     }
 
     @Nullable
+    static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(BlockEntityType<A> givenType,
+                                                                                         BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
+        return expectedType == givenType ? (@Nullable BlockEntityTicker<A>) ticker : null;
+    }
+
+    @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
-            BlockEntityType<T> type) {
+                                                                  BlockEntityType<T> type) {
         return !world.isClient ? checkType(type, SkyutilsMod.CONDENSER_ENTITY, CondenserEntity::tick) : null;
     }
 
@@ -92,15 +97,5 @@ public class CondenserBlock extends HorizontalFacingBlock implements BlockEntity
             }
         }
         return ItemStack.EMPTY;
-    }
-
-    @Nullable
-    static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(BlockEntityType<A> givenType,
-            BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
-        return expectedType == givenType ? (@Nullable BlockEntityTicker<A>) ticker : null;
-    }
-
-    static {
-        LEVEL = IntProperty.of("level", 0, 7);
     }
 }

@@ -1,13 +1,7 @@
 package net.blightbuster.kiln;
 
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.HorizontalFacingBlock;
+import net.blightbuster.SkyutilsMod;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,16 +14,12 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.blightbuster.SkyutilsMod;
+import org.jetbrains.annotations.Nullable;
 
 public class KilnBlock extends BlockWithEntity {
 
@@ -64,7 +54,7 @@ public class KilnBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-            BlockHitResult hit) {
+                              BlockHitResult hit) {
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof KilnBlockEntity) {
@@ -129,7 +119,7 @@ public class KilnBlock extends BlockWithEntity {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
-            BlockEntityType<T> type) {
+                                                                  BlockEntityType<T> type) {
         return !world.isClient ? checkType(type, SkyutilsMod.KILN_ENTITY, KilnBlockEntity::tick) : null;
     }
 

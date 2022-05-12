@@ -36,8 +36,7 @@ public class Crucible extends Item {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        HitResult hitResult = raycast(world, user, this.fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY
-                : RaycastContext.FluidHandling.NONE);
+        HitResult hitResult = raycast(world, user, this.fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
 
         if (hitResult.getType() == HitResult.Type.MISS) {
             return TypedActionResult.pass(itemStack);
@@ -53,8 +52,7 @@ public class Crucible extends Item {
                 if (this.fluid == Fluids.EMPTY) {
                     blockState = world.getBlockState(blockPos);
                     if (blockState.getBlock() instanceof FluidDrainable) {
-                        ItemStack fluid_item = ((FluidDrainable) blockState.getBlock()).tryDrainFluid(world, blockPos,
-                                blockState);
+                        ItemStack fluid_item = ((FluidDrainable) blockState.getBlock()).tryDrainFluid(world, blockPos, blockState);
 
 
                         if (fluid_item != ItemStack.EMPTY) {
@@ -65,9 +63,8 @@ public class Crucible extends Item {
                             } else if (fluid_item.getItem() == Items.WATER_BUCKET || fluid_item.getItem() == SkyutilsMod.WATER_CRUCIBLE) {
                                 item = new ItemStack(SkyutilsMod.WATER_CRUCIBLE);
                             }
-                            if(item!=null){
-                                user.playSound(fluid_item.getItem() == Items.LAVA_BUCKET ? SoundEvents.ITEM_BUCKET_FILL_LAVA
-                                        : SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+                            if (item != null) {
+                                user.playSound(fluid_item.getItem() == Items.LAVA_BUCKET ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
                                 ItemStack itemStack2 = this.getFilledStack(itemStack, user, item.getItem());
                                 if (!world.isClient) {
                                     Criteria.FILLED_BUCKET.trigger((ServerPlayerEntity) user, item);
@@ -80,9 +77,7 @@ public class Crucible extends Item {
                     return TypedActionResult.fail(itemStack);
                 } else {
                     blockState = world.getBlockState(blockPos);
-                    BlockPos blockPos3 = blockState.getBlock() instanceof FluidFillable && this.fluid == Fluids.WATER
-                            ? blockPos
-                            : blockPos2;
+                    BlockPos blockPos3 = blockState.getBlock() instanceof FluidFillable && this.fluid == Fluids.WATER ? blockPos : blockPos2;
                     if (this.placeFluid(user, world, blockPos3, blockHitResult)) {
                         this.onEmptied(world, itemStack, blockPos3);
                         if (user instanceof ServerPlayerEntity) {
@@ -133,25 +128,20 @@ public class Crucible extends Item {
             BlockState blockState = world.getBlockState(pos);
             Material material = blockState.getMaterial();
             boolean bl = blockState.canBucketPlace(this.fluid);
-            if (!blockState.isAir() && !bl && (!(blockState.getBlock() instanceof FluidFillable)
-                    || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, this.fluid))) {
-                return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()),
-                        null);
+            if (!blockState.isAir() && !bl && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, this.fluid))) {
+                return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()), null);
             } else {
                 if (world.getDimension().isUltrawarm() && this.fluid.matchesType(Fluids.WATER)) {
                     int i = pos.getX();
                     int j = pos.getY();
                     int k = pos.getZ();
-                    world.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F,
-                            2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
+                    world.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
                     for (int l = 0; l < 8; ++l) {
-                        world.addParticle(ParticleTypes.LARGE_SMOKE, (double) i + Math.random(),
-                                (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
+                        world.addParticle(ParticleTypes.LARGE_SMOKE, (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
                     }
                 } else if (blockState.getBlock() instanceof FluidFillable && this.fluid == Fluids.WATER) {
-                    if (((FluidFillable) blockState.getBlock()).tryFillWithFluid(world, pos, blockState,
-                            this.fluid.getDefaultState())) {
+                    if (((FluidFillable) blockState.getBlock()).tryFillWithFluid(world, pos, blockState, this.fluid.getDefaultState())) {
                         this.playEmptyingSound(player, world, pos);
                     }
                 } else {
@@ -169,8 +159,7 @@ public class Crucible extends Item {
     }
 
     protected void playEmptyingSound(PlayerEntity player, World world, BlockPos pos) {
-        SoundEvent soundEvent = this.fluid.matchesType(Fluids.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA
-                : SoundEvents.ITEM_BUCKET_EMPTY;
+        SoundEvent soundEvent = this.fluid.matchesType(Fluids.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
         world.playSound(player, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 }

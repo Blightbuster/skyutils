@@ -141,20 +141,7 @@ public class Hammer extends MiningToolItem {
     @Override
     public boolean isSuitableFor(BlockState state) {
         Block block = state.getBlock();
-        List effectiveBlocks = List.of(
-                Blocks.STONE,
-                Blocks.COBBLESTONE,
-                Blocks.SAND,
-                Blocks.RED_SAND,
-                Blocks.GRAVEL,
-                Blocks.GRASS_BLOCK,
-                Blocks.PODZOL,
-                SkyutilsMod.CHARCOAL_BLOCK,
-                Blocks.QUARTZ_BLOCK,
-                Blocks.NETHERRACK,
-                Blocks.COAL_BLOCK,
-                Blocks.MOSS_BLOCK
-        );
+        List effectiveBlocks = List.of(Blocks.STONE, Blocks.COBBLESTONE, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.GRASS_BLOCK, Blocks.PODZOL, SkyutilsMod.CHARCOAL_BLOCK, Blocks.QUARTZ_BLOCK, Blocks.NETHERRACK, Blocks.COAL_BLOCK, Blocks.MOSS_BLOCK);
         return effectiveBlocks.contains(block) || state.isIn(BlockTags.LOGS);
     }
 }

@@ -1,8 +1,19 @@
 {
-    "variants": {
-        "facing=north": { "model": "skyutils:block/kiln" },
-        "facing=south": { "model": "skyutils:block/kiln", "y": 180 },
-        "facing=west":  { "model": "skyutils:block/kiln", "y": 270 },
-        "facing=east":  { "model": "skyutils:block/kiln", "y": 90 }
+  "variants": {
+    "facing=north": {
+      "model": "skyutils:block/kiln"
+    },
+    "facing=south": {
+      "model": "skyutils:block/kiln",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "skyutils:block/kiln",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "skyutils:block/kiln",
+      "y": 90
     }
+  }
 }

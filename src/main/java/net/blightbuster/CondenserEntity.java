@@ -18,53 +18,6 @@ public class CondenserEntity extends BlockEntity {
         super(SkyutilsMod.CONDENSER_ENTITY, pos, state);
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setLevel(int l) {
-        level = l;
-    }
-
-    public void incLevel() {
-        if (level < 7)
-            level++;
-    }
-
-    public void setTime(int t) {
-        time = t;
-    }
-
-    public void incTime() {
-        time++;
-    }
-
-    public void empty() {
-        level = 0;
-        time = 0;
-    }
-
-    @Override
-    public void writeNbt(NbtCompound tag) {
-        super.writeNbt(tag);
-
-        // Save the current value of the number to the tag
-        tag.putInt("number", time);
-        tag.putInt("level", level);
-    }
-
-    @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
-
-        time = tag.getInt("number");
-        level = tag.getInt("level");
-    }
-
     public static void tick(World world, BlockPos pos, BlockState state, CondenserEntity blockEntity) {
         if (!world.isClient) {
 
@@ -98,5 +51,52 @@ public class CondenserEntity extends BlockEntity {
                 blockEntity.markDirty();
             }
         }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int l) {
+        level = l;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int t) {
+        time = t;
+    }
+
+    public void incLevel() {
+        if (level < 7)
+            level++;
+    }
+
+    public void incTime() {
+        time++;
+    }
+
+    public void empty() {
+        level = 0;
+        time = 0;
+    }
+
+    @Override
+    public void writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
+
+        // Save the current value of the number to the tag
+        tag.putInt("number", time);
+        tag.putInt("level", level);
+    }
+
+    @Override
+    public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
+
+        time = tag.getInt("number");
+        level = tag.getInt("level");
     }
 }
