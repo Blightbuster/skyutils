@@ -120,6 +120,16 @@ public class Hammer extends MiningToolItem {
                 }
                 yield null;
             }
+            case "tuff" -> {
+                if (isLucky(0.4f, bonusMul)) {
+                    var zinc = Registry.ITEM.get(Identifier.tryParse("create:zinc_nugget"));
+                    var copper = Registry.ITEM.get(Identifier.tryParse("create:copper_nugget"));
+                    yield new ItemStack(rdm(rdm(Items.IRON_NUGGET, Items.GOLD_NUGGET), rdm(zinc, copper)));
+                }
+
+                if (isLucky(0.4f)) yield new ItemStack(Items.FLINT);
+                yield null;
+            }
             default -> null;
         };
 
@@ -141,7 +151,9 @@ public class Hammer extends MiningToolItem {
     @Override
     public boolean isSuitableFor(BlockState state) {
         Block block = state.getBlock();
-        List effectiveBlocks = List.of(Blocks.STONE, Blocks.COBBLESTONE, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.GRASS_BLOCK, Blocks.PODZOL, SkyutilsMod.CHARCOAL_BLOCK, Blocks.QUARTZ_BLOCK, Blocks.NETHERRACK, Blocks.COAL_BLOCK, Blocks.MOSS_BLOCK);
+        List effectiveBlocks = List.of(Blocks.STONE, Blocks.COBBLESTONE, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL,
+                Blocks.GRASS_BLOCK, Blocks.PODZOL, SkyutilsMod.CHARCOAL_BLOCK, Blocks.QUARTZ_BLOCK, Blocks.NETHERRACK,
+                Blocks.COAL_BLOCK, Blocks.MOSS_BLOCK, Blocks.TUFF);
         return effectiveBlocks.contains(block) || state.isIn(BlockTags.LOGS);
     }
 }
